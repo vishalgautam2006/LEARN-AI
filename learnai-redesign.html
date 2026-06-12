@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnAI – Learn Smarter with AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#04081E;
+  --mid:#080F2E;
+  --card:rgba(255,255,255,0.04);
+  --card-h:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);
+  --border-b:rgba(67,97,238,0.4);
+  --blue:#4361EE;
+  --blue-d:#3451C7;
+  --cyan:#4CC9F0;
+  --purple:#7B2FBE;
+  --green:#06D6A0;
+  --gold:#FFD60A;
+  --rose:#F72585;
+  --t1:#F0F4FF;
+  --t2:rgba(240,244,255,0.6);
+  --t3:rgba(240,244,255,0.35);
+  --g1:linear-gradient(135deg,#4361EE 0%,#7B2FBE 50%,#4CC9F0 100%);
+  --g2:linear-gradient(135deg,rgba(67,97,238,.15),rgba(123,47,190,.15));
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--deep);color:var(--t1);overflow-x:hidden;line-height:1.6}
+h1,h2,h3,h4,h5{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;line-height:1.2}
+.gr{background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+#cvs{position:fixed;inset:0;z-index:0;pointer-events:none}
+.glow{position:fixed;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(67,97,238,.06) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .08s,top .08s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;background:rgba(4,8,30,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.ni{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-i{width:36px;height:36px;background:var(--g1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:900;color:#fff}
+.logo-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:var(--t1)}
+.logo-t span{background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nl{display:flex;align-items:center;gap:32px;list-style:none}
+.nl a{color:var(--t2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nl a:hover{color:var(--t1)}
+.nc{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;font-size:14px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:all .3s;text-decoration:none;border:none}
+.btn-g{background:transparent;color:var(--t2);border:1px solid var(--border)}
+.btn-g:hover{background:var(--card-h);color:var(--t1);border-color:var(--blue)}
+.btn-p{background:var(--g1);color:#fff;box-shadow:0 4px 24px rgba(67,97,238,.4)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(67,97,238,.6)}
+.btn-l{padding:16px 32px;font-size:16px;border-radius:14px}
+.btn-o{background:transparent;color:var(--t1);border:1px solid rgba(255,255,255,.2)}
+.btn-o:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 24px 80px;z-index:1;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(67,97,238,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-200px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(123,47,190,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hi{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(67,97,238,.12);border:1px solid rgba(67,97,238,.3);border-radius:100px;font-size:13px;font-weight:600;color:var(--cyan);margin-bottom:24px}
+.bdot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:pdot 2s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+.ht{font-size:clamp(40px,5.5vw,72px);font-weight:900;line-height:1.08;margin-bottom:20px;letter-spacing:-2px}
+.hs{font-size:18px;color:var(--t2);max-width:480px;margin-bottom:40px;line-height:1.7}
+.ha{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.play{display:inline-flex;align-items:center;gap:10px;color:var(--t2);font-size:14px;font-weight:600;text-decoration:none;transition:color .2s}
+.play:hover{color:var(--t1)}
+.pi{width:44px;height:44px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .3s}
+.play:hover .pi{background:var(--blue);border-color:var(--blue);box-shadow:0 0 20px rgba(67,97,238,.6)}
+.sp{display:flex;align-items:center;gap:16px}
+.avs{display:flex}
+.av{width:36px;height:36px;border-radius:50%;border:2px solid var(--deep);display:flex;align-items:center;justify-content:center;margin-left:-8px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px}
+.av:first-child{margin-left:0}
+.a1{background:linear-gradient(135deg,#4361EE,#7B2FBE)}
+.a2{background:linear-gradient(135deg,#06D6A0,#4CC9F0)}
+.a3{background:linear-gradient(135deg,#F72585,#7B2FBE)}
+.a4{background:linear-gradient(135deg,#FFD60A,#F72585)}
+.a5{background:linear-gradient(135deg,#4CC9F0,#4361EE)}
+.spt{font-size:13px;color:var(--t2)}
+.spt strong{color:var(--t1);display:block;font-size:15px}
+
+/* ORBIT HERO VISUAL */
+.hv{position:relative;display:flex;align-items:center;justify-content:center;height:520px}
+.os{position:relative;width:400px;height:400px}
+.oc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:96px;background:var(--g1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 0 60px rgba(67,97,238,.6),0 0 120px rgba(67,97,238,.2);z-index:10;animation:cpulse 3s ease-in-out infinite}
+@keyframes cpulse{0%,100%{box-shadow:0 0 60px rgba(67,97,238,.6),0 0 120px rgba(67,97,238,.2)}50%{box-shadow:0 0 80px rgba(123,47,190,.8),0 0 160px rgba(67,97,238,.3)}}
+.rg{position:absolute;top:50%;left:50%;border-radius:50%;border:1.5px solid rgba(67,97,238,.2);transform-origin:center}
+.r1{width:180px;height:180px;margin:-90px 0 0 -90px;border-color:rgba(67,97,238,.5);animation:rs1 6s linear infinite}
+.r2{width:280px;height:280px;margin:-140px 0 0 -140px;border-color:rgba(123,47,190,.35);animation:rs2 10s linear infinite}
+.r3{width:390px;height:390px;margin:-195px 0 0 -195px;border-color:rgba(76,201,240,.2);animation:rs3 16s linear infinite reverse}
+@keyframes rs1{from{transform:rotateX(70deg) rotate(0deg)}to{transform:rotateX(70deg) rotate(360deg)}}
+@keyframes rs2{from{transform:rotateX(75deg) rotateZ(0deg)}to{transform:rotateX(75deg) rotateZ(360deg)}}
+@keyframes rs3{from{transform:rotateX(65deg) rotateZ(0deg)}to{transform:rotateX(65deg) rotateZ(-360deg)}}
+.chip{position:absolute;padding:8px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:12px;font-weight:600;color:var(--t1);backdrop-filter:blur(10px);white-space:nowrap;animation:fl 3.2s ease-in-out infinite}
+.c1{top:8%;right:-8%;animation-delay:0s;border-color:rgba(67,97,238,.5);color:var(--cyan)}
+.c2{bottom:22%;right:-14%;animation-delay:1s;border-color:rgba(6,214,160,.5);color:var(--green)}
+.c3{top:52%;left:-18%;animation-delay:.5s;border-color:rgba(123,47,190,.5);color:#C49BF0}
+.c4{top:14%;left:-6%;animation-delay:1.6s;border-color:rgba(255,214,10,.5);color:var(--gold)}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* MARQUEE */
+.trust{position:relative;z-index:1;padding:36px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+.tlbl{text-align:center;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:20px}
+.mq{display:flex;gap:48px;animation:mq 22s linear infinite;width:max-content}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.co{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;color:var(--t3);white-space:nowrap;padding:0 8px}
+
+/* STATS */
+.stats{position:relative;z-index:1;padding:80px 24px}
+.si{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 24px;text-align:center;backdrop-filter:blur(20px);transition:all .4s;cursor:default;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;inset:0;background:var(--g2);opacity:0;transition:opacity .4s;border-radius:20px}
+.sc:hover{border-color:var(--border-b);transform:translateY(-4px);box-shadow:0 20px 60px rgba(67,97,238,.15)}
+.sc:hover::before{opacity:1}
+.sci{font-size:28px;margin-bottom:12px;display:block}
+.sn{font-family:'Plus Jakarta Sans',sans-serif;font-size:48px;font-weight:900;line-height:1;margin-bottom:8px;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sl{font-size:14px;color:var(--t2);font-weight:500}
+
+/* SECTION COMMONS */
+section{position:relative;z-index:1}
+.sw{max-width:1200px;margin:0 auto;padding:0 24px}
+.sh{text-align:center;margin-bottom:64px}
+.ey{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(67,97,238,.08);border:1px solid rgba(67,97,238,.2);border-radius:100px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.st{font-size:clamp(32px,4vw,52px);font-weight:900;margin-bottom:16px;letter-spacing:-1.5px}
+.ss{font-size:17px;color:var(--t2);max-width:580px;margin:0 auto;line-height:1.7}
+
+/* FEATURES */
+.features{padding:100px 24px}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.fc{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:36px 28px;transition:all .3s;position:relative;overflow:hidden;cursor:default}
+.fc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--g1);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.fc:hover{border-color:rgba(67,97,238,.3);transform:translateY(-6px);box-shadow:0 24px 64px rgba(4,8,30,.8),0 0 0 1px rgba(67,97,238,.1)}
+.fc:hover::after{transform:scaleX(1)}
+.fi{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px}
+.fb{background:rgba(67,97,238,.15)}
+.fp{background:rgba(123,47,190,.15)}
+.fg2{background:rgba(6,214,160,.15)}
+.fc2{background:rgba(76,201,240,.15)}
+.fgo{background:rgba(255,214,10,.15)}
+.fr{background:rgba(247,37,133,.15)}
+.fn{font-size:20px;font-weight:700;margin-bottom:10px;font-family:'Plus Jakarta Sans',sans-serif}
+.fd{font-size:14px;color:var(--t2);line-height:1.7}
+.ftag{display:inline-block;margin-top:16px;padding:4px 10px;background:rgba(67,97,238,.12);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--cyan)}
+
+/* COURSES */
+.courses{padding:80px 24px;background:rgba(255,255,255,.01)}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .3s;cursor:pointer}
+.cc:hover{transform:translateY(-4px) scale(1.01);border-color:rgba(67,97,238,.3);box-shadow:0 20px 60px rgba(4,8,30,.8)}
+.ct{height:140px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
+.tai{background:linear-gradient(135deg,rgba(67,97,238,.3),rgba(123,47,190,.3))}
+.twe{background:linear-gradient(135deg,rgba(76,201,240,.3),rgba(67,97,238,.3))}
+.tda{background:linear-gradient(135deg,rgba(6,214,160,.3),rgba(76,201,240,.3))}
+.tcl{background:linear-gradient(135deg,rgba(255,214,10,.2),rgba(67,97,238,.2))}
+.tcy{background:linear-gradient(135deg,rgba(247,37,133,.3),rgba(123,47,190,.3))}
+.tpm{background:linear-gradient(135deg,rgba(123,47,190,.3),rgba(67,97,238,.3))}
+.cbg{position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
+.bs{background:rgba(255,214,10,.2);color:var(--gold);border:1px solid rgba(255,214,10,.3)}
+.bn{background:rgba(6,214,160,.2);color:var(--green);border:1px solid rgba(6,214,160,.3)}
+.bt{background:rgba(247,37,133,.2);color:var(--rose);border:1px solid rgba(247,37,133,.3)}
+.cb{padding:20px}
+.ccat{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.ctit{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.cm{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--t3);margin-bottom:16px}
+.cf{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
+.cp{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ce{padding:8px 18px;background:rgba(67,97,238,.12);border:1px solid rgba(67,97,238,.3);border-radius:8px;color:var(--cyan);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
+.ce:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.cca{text-align:center}
+
+/* HOW IT WORKS */
+.how{padding:100px 24px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;position:relative}
+.sgrid::before{content:'';position:absolute;top:40px;left:25%;right:25%;height:1px;background:linear-gradient(90deg,transparent,var(--blue),var(--purple),var(--cyan),transparent)}
+.step{text-align:center;position:relative;z-index:1}
+.snw{width:80px;height:80px;background:rgba(67,97,238,.08);border:2px solid rgba(67,97,238,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+.snum{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:900;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sico{font-size:28px;margin-bottom:16px;display:block}
+.stit{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;margin-bottom:12px}
+.sde{font-size:14px;color:var(--t2);line-height:1.7}
+
+/* TESTIMONIALS */
+.testi{padding:100px 24px}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:32px;transition:all .3s}
+.tc:hover{border-color:rgba(67,97,238,.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(4,8,30,.8)}
+.stars{color:var(--gold);font-size:16px;letter-spacing:2px;margin-bottom:16px}
+.ttext{font-size:15px;line-height:1.8;color:var(--t2);margin-bottom:24px;font-style:italic}
+.ttext::before{content:'\201C';font-size:44px;font-family:serif;color:var(--blue);line-height:0;vertical-align:-18px;margin-right:4px}
+.rv{display:flex;align-items:center;gap:12px}
+.rav{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;flex-shrink:0}
+.rn{font-weight:700;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:2px}
+.rr{font-size:13px;color:var(--t3)}
+.rc{font-size:12px;color:var(--cyan);font-weight:600;margin-top:2px}
+
+/* CTA SECTION */
+.ctasec{padding:80px 24px}
+.ctabox{background:linear-gradient(135deg,rgba(67,97,238,.15) 0%,rgba(123,47,190,.15) 50%,rgba(76,201,240,.1) 100%);border:1px solid rgba(67,97,238,.25);border-radius:32px;padding:80px;text-align:center;position:relative;overflow:hidden}
+.ctabox::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(67,97,238,.18) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.ctat{font-size:clamp(32px,4vw,52px);font-weight:900;margin-bottom:16px;letter-spacing:-1.5px}
+.ctas{font-size:18px;color:var(--t2);margin-bottom:40px}
+.ctaac{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.ctan{margin-top:20px;font-size:13px;color:var(--t3)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60px 24px 32px}
+.fi2{max-width:1200px;margin:0 auto}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fbr p{font-size:14px;color:var(--t2);margin:12px 0 24px;max-width:280px;line-height:1.7}
+.fso{display:flex;gap:10px}
+.sb{width:36px;height:36px;background:var(--card);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;text-decoration:none;transition:all .2s;cursor:pointer;color:var(--t2)}
+.sb:hover{background:rgba(67,97,238,.2);border-color:rgba(67,97,238,.4);color:var(--t1)}
+.fcol h4{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fcol a{font-size:14px;color:var(--t3);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--t1)}
+.fb2{border-top:1px solid var(--border);padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.fcp{font-size:13px;color:var(--t3)}
+.fls{display:flex;gap:24px}
+.fls a{font-size:13px;color:var(--t3);text-decoration:none;transition:color .2s}
+.fls a:hover{color:var(--t1)}
+
+/* REVEAL */
+.rv2{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.rv2.vis{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hi{grid-template-columns:1fr}.hv{display:none}
+  .si{grid-template-columns:repeat(2,1fr)}
+  .fg{grid-template-columns:1fr 1fr}
+  .cg{grid-template-columns:1fr 1fr}
+  .tg{grid-template-columns:1fr 1fr}
+  .ft{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .fg{grid-template-columns:1fr}
+  .cg{grid-template-columns:1fr}
+  .tg{grid-template-columns:1fr}
+  .sgrid{grid-template-columns:1fr}.sgrid::before{display:none}
+  .ft{grid-template-columns:1fr}
+  nav .nl{display:none}
+  .ctabox{padding:40px 20px}
+  .si{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="glow" id="glw"></div>
+<canvas id="cvs"></canvas>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="ni">
+    <a class="logo" href="#">
+      <div class="logo-i">L</div>
+      <span class="logo-t">Learn<span>AI</span></span>
+    </a>
+    <ul class="nl">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#how">How it Works</a></li>
+      <li><a href="#stories">Stories</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+    <div class="nc">
+      <a class="btn btn-g" href="#">Login</a>
+      <a class="btn btn-p" href="#">Start Free →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hi">
+    <div>
+      <div class="badge"><span class="bdot"></span>🇮🇳 India's #1 AI Learning Platform</div>
+      <h1 class="ht">Master Skills.<br><span class="gr">AI That Learns</span><br>You Back.</h1>
+      <p class="hs">Adaptive AI courses that personalize to your pace, learning style, and career goals. Zero to job-ready in months, not years.</p>
+      <div class="ha">
+        <a class="btn btn-p btn-l" href="#">Start Learning Free →</a>
+        <a class="play" href="#"><div class="pi">▶</div>See how it works</a>
+      </div>
+      <div class="sp">
+        <div class="avs">
+          <div class="av a1">A</div>
+          <div class="av a2">P</div>
+          <div class="av a3">R</div>
+          <div class="av a4">K</div>
+          <div class="av a5">S</div>
+        </div>
+        <div class="spt"><strong>50,000+ learners</strong>already transforming their careers</div>
+      </div>
+    </div>
+    <div class="hv">
+      <div class="os">
+        <div class="rg r1"></div>
+        <div class="rg r2"></div>
+        <div class="rg r3"></div>
+        <div class="oc">🤖</div>
+        <div class="chip c1">🧠 Machine Learning</div>
+        <div class="chip c2">💻 Full Stack Dev</div>
+        <div class="chip c3">📊 Data Science</div>
+        <div class="chip c4">☁️ Cloud & DevOps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="trust">
+  <div class="tlbl">Alumni working at India's top companies</div>
+  <div class="mq" id="mq">
+    <span class="co">Google</span><span class="co">Microsoft</span><span class="co">Amazon</span><span class="co">Meta</span><span class="co">Flipkart</span><span class="co">Infosys</span><span class="co">Wipro</span><span class="co">TCS</span><span class="co">Razorpay</span><span class="co">CRED</span><span class="co">Swiggy</span><span class="co">Zomato</span><span class="co">PhonePe</span><span class="co">Meesho</span>
+    <span class="co">Google</span><span class="co">Microsoft</span><span class="co">Amazon</span><span class="co">Meta</span><span class="co">Flipkart</span><span class="co">Infosys</span><span class="co">Wipro</span><span class="co">TCS</span><span class="co">Razorpay</span><span class="co">CRED</span><span class="co">Swiggy</span><span class="co">Zomato</span><span class="co">PhonePe</span><span class="co">Meesho</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="si">
+    <div class="sc rv2"><span class="sci">👥</span><div class="sn" data-target="50" data-sfx="K+">0</div><div class="sl">Active Learners</div></div>
+    <div class="sc rv2"><span class="sci">🎯</span><div class="sn" data-target="95" data-sfx="%">0</div><div class="sl">Job Placement Rate</div></div>
+    <div class="sc rv2"><span class="sci">🎓</span><div class="sn" data-target="200" data-sfx="+">0</div><div class="sl">AI-Powered Courses</div></div>
+    <div class="sc rv2"><span class="sci">⭐</span><div class="sn" data-target="4.9" data-sfx="/5" data-dec="1">0</div><div class="sl">Average Rating</div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="sw">
+    <div class="sh">
+      <div class="ey">✦ Why LearnAI</div>
+      <h2 class="st">Learning reimagined,<br><span class="gr">powered by AI</span></h2>
+      <p class="ss">Every feature is engineered to maximize your learning velocity and career outcomes</p>
+    </div>
+    <div class="fg">
+      <div class="fc tilt rv2">
+        <div class="fi fb">🧠</div>
+        <div class="fn">Adaptive AI Pathways</div>
+        <p class="fd">Our AI tracks how you learn, what you struggle with, and dynamically adjusts your curriculum in real-time for maximum growth.</p>
+        <span class="ftag">AI-POWERED</span>
+      </div>
+      <div class="fc tilt rv2">
+        <div class="fi fp">🎬</div>
+        <div class="fn">Animated Video Lessons</div>
+        <p class="fd">Complex concepts broken down into cinematic animations that stick. No more boring lectures or PowerPoint slides.</p>
+        <span class="ftag">VISUAL LEARNING</span>
+      </div>
+      <div class="fc tilt rv2">
+        <div class="fi fg2">🏆</div>
+        <div class="fn">Placement Guarantee</div>
+        <p class="fd">95% of our graduates land jobs within 6 months — or we refund your money. No asterisks, no conditions.</p>
+        <span class="ftag">GUARANTEED</span>
+      </div>
+      <div class="fc tilt rv2">
+        <div class="fi fc2">👨‍💼</div>
+        <div class="fn">Industry Mentors</div>
+        <p class="fd">Live sessions with engineers from Google, Amazon, and top startups. Get real code reviews and insider career advice.</p>
+        <span class="ftag">LIVE MENTORING</span>
+      </div>
+      <div class="fc tilt rv2">
+        <div class="fi fgo">🔨</div>
+        <div class="fn">Real-World Projects</div>
+        <p class="fd">Build a portfolio of production-grade projects that impress any hiring manager. Learn by building, not just watching.</p>
+        <span class="ftag">PROJECT-BASED</span>
+      </div>
+      <div class="fc tilt rv2">
+        <div class="fi fr">🌐</div>
+        <div class="fn">Global Community</div>
+        <p class="fd">Join study groups, hackathons, and peer reviews with 50K+ learners across India and worldwide.</p>
+        <span class="ftag">COMMUNITY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="courses" id="courses">
+  <div class="sw">
+    <div class="sh">
+      <div class="ey">✦ Popular Courses</div>
+      <h2 class="st">Find your next<br><span class="gr">career path</span></h2>
+      <p class="ss">Curriculum co-designed with engineers from India's top tech companies</p>
+    </div>
+    <div class="cg">
+      <div class="cc tilt rv2">
+        <div class="ct tai">🤖<span class="cbg bs">BESTSELLER</span></div>
+        <div class="cb">
+          <div class="ccat">Artificial Intelligence</div>
+          <div class="ctit">AI & Machine Learning Mastery</div>
+          <div class="cm"><span>⭐ 4.9</span><span>👥 12,400</span><span>⏱ 64 hrs</span></div>
+          <div class="cf"><span class="cp">₹4,999</span><button class="ce">Enroll Now</button></div>
+        </div>
+      </div>
+      <div class="cc tilt rv2">
+        <div class="ct twe">💻<span class="cbg bn">NEW</span></div>
+        <div class="cb">
+          <div class="ccat">Web Development</div>
+          <div class="ctit">Full Stack with React & Node.js</div>
+          <div class="cm"><span>⭐ 4.8</span><span>👥 9,200</span><span>⏱ 72 hrs</span></div>
+          <div class="cf"><span class="cp">₹3,999</span><button class="ce">Enroll Now</button></div>
+        </div>
+      </div>
+      <div class="cc tilt rv2">
+        <div class="ct tda">📊<span class="cbg bt">🔥 TRENDING</span></div>
+        <div class="cb">
+          <div class="ccat">Data Science</div>
+          <div class="ctit">Data Science & Analytics Bootcamp</div>
+          <div class="cm"><span>⭐ 4.9</span><span>👥 8,100</span><span>⏱ 56 hrs</span></div>
+          <div class="cf"><span class="cp">₹4,499</span><button class="ce">Enroll Now</button></div>
+        </div>
+      </div>
+      <div class="cc tilt rv2">
+        <div class="ct tcl">☁️<span class="cbg bs">BESTSELLER</span></div>
+        <div class="cb">
+          <div class="ccat">Cloud & DevOps</div>
+          <div class="ctit">AWS, Docker & Kubernetes Complete</div>
+          <div class="cm"><span>⭐ 4.8</span><span>👥 5,600</span><span>⏱ 48 hrs</span></div>
+          <div class="cf"><span class="cp">₹5,499</span><button class="ce">Enroll Now</button></div>
+        </div>
+      </div>
+      <div class="cc tilt rv2">
+        <div class="ct tcy">🔐<span class="cbg bn">NEW</span></div>
+        <div class="cb">
+          <div class="ccat">Cybersecurity</div>
+          <div class="ctit">Ethical Hacking & Security Pro</div>
+          <div class="cm"><span>⭐ 4.7</span><span>👥 3,900</span><span>⏱ 52 hrs</span></div>
+          <div class="cf"><span class="cp">₹5,999</span><button class="ce">Enroll Now</button></div>
+        </div>
+      </div>
+      <div class="cc tilt rv2">
+        <div class="ct tpm">📱<span class="cbg bt">🔥 TRENDING</span></div>
+        <div class="cb">
+          <div class="ccat">Product Management</div>
+          <div class="ctit">Product Management for Tech Leaders</div>
+          <div class="cm"><span>⭐ 4.9</span><span>👥 4,800</span><span>⏱ 40 hrs</span></div>
+          <div class="cf"><span class="cp">₹4,299</span><button class="ce">Enroll Now</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="cca"><a class="btn btn-o btn-l" href="#">Browse All 200+ Courses →</a></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="sw">
+    <div class="sh">
+      <div class="ey">✦ The Process</div>
+      <h2 class="st">Your road to a<br><span class="gr">dream career starts here</span></h2>
+    </div>
+    <div class="sgrid">
+      <div class="step rv2">
+        <div class="snw"><span class="snum">01</span></div>
+        <span class="sico">🎯</span>
+        <div class="stit">Define Your Goal</div>
+        <p class="sde">Tell our AI your current skills, target role, and timeline. It builds a unique learning roadmap crafted just for you.</p>
+      </div>
+      <div class="step rv2">
+        <div class="snw"><span class="snum">02</span></div>
+        <span class="sico">📚</span>
+        <div class="stit">Learn Adaptively</div>
+        <p class="sde">Study with animated lessons, live mentor sessions, and AI that adjusts difficulty based on your real-time progress.</p>
+      </div>
+      <div class="step rv2">
+        <div class="snw"><span class="snum">03</span></div>
+        <span class="sico">💼</span>
+        <div class="stit">Get Hired</div>
+        <p class="sde">Build your portfolio, ace mock interviews, and get connected to 500+ hiring partners actively recruiting our graduates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi" id="stories">
+  <div class="sw">
+    <div class="sh">
+      <div class="ey">✦ Student Stories</div>
+      <h2 class="st">Real results from<br><span class="gr">real learners</span></h2>
+    </div>
+    <div class="tg">
+      <div class="tc tilt rv2">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">LearnAI's adaptive roadmap took me from complete beginner to getting an ML Engineer offer at Google India in just 9 months. The AI knew exactly what I was struggling with before I even did.</p>
+        <div class="rv">
+          <div class="rav" style="background:linear-gradient(135deg,#4361EE,#7B2FBE)">A</div>
+          <div><div class="rn">Arjun Sharma</div><div class="rr">ML Engineer</div><div class="rc">@ Google India</div></div>
+        </div>
+      </div>
+      <div class="tc tilt rv2">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">Switched from marketing to data science at 28. LearnAI made it feel structured and possible. The placement team was incredible — 3 interview calls within a week of my certificate.</p>
+        <div class="rv">
+          <div class="rav" style="background:linear-gradient(135deg,#06D6A0,#4CC9F0)">P</div>
+          <div><div class="rn">Priya Mehta</div><div class="rr">Data Scientist</div><div class="rc">@ Amazon</div></div>
+        </div>
+      </div>
+      <div class="tc tilt rv2">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">The animated lessons are genuinely addictive. I used to fall asleep watching tutorials. With LearnAI, I was staying up late because I actually wanted to finish the next module.</p>
+        <div class="rv">
+          <div class="rav" style="background:linear-gradient(135deg,#F72585,#7B2FBE)">K</div>
+          <div><div class="rn">Kavya Nair</div><div class="rr">Full Stack Developer</div><div class="rc">@ Razorpay</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctasec">
+  <div class="sw">
+    <div class="ctabox">
+      <div class="ey" style="margin-bottom:20px">✦ Start Today — Free</div>
+      <h2 class="ctat">Your dream job is<br><span class="gr">one course away</span></h2>
+      <p class="ctas">Join 50,000+ learners already building their future with AI</p>
+      <div class="ctaac">
+        <a class="btn btn-p btn-l" href="#">Start Learning Free →</a>
+        <a class="btn btn-o btn-l" href="#">Talk to an Advisor</a>
+      </div>
+      <p class="ctan">✓ No credit card required &nbsp; ✓ 7-day free trial &nbsp; ✓ Cancel anytime</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi2">
+    <div class="ft">
+      <div class="fbr">
+        <a class="logo" href="#"><div class="logo-i">L</div><span class="logo-t">Learn<span>AI</span></span></a>
+        <p>India's first AI-powered personalized learning platform. Master tech skills with adaptive AI and land your dream job.</p>
+        <div class="fso">
+          <a class="sb" href="#">𝕏</a>
+          <a class="sb" href="#">in</a>
+          <a class="sb" href="#">📷</a>
+          <a class="sb" href="#">▶</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Learning Paths</a></li>
+          <li><a href="#">Live Sessions</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Certifications</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fb2">
+      <div class="fcp">© 2025 LearnAI Technologies Pvt. Ltd. · Made with ❤️ in India 🇮🇳</div>
+      <div class="fls"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// PARTICLE CANVAS
+const canvas=document.getElementById('cvs'),ctx=canvas.getContext('2d');
+let W=canvas.width=window.innerWidth,H=canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight});
+const COLORS=['67,97,238','123,47,190','76,201,240'];
+class P{constructor(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.r=Math.random()*1.5+.5;this.o=Math.random()*.35+.1;this.c=COLORS[Math.floor(Math.random()*3)]}up(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W)this.vx*=-1;if(this.y<0||this.y>H)this.vy*=-1}dr(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(${this.c},${this.o})`;ctx.fill()}}
+const pts=Array.from({length:90},()=>new P());
+function conn(){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);if(d<130){ctx.beginPath();ctx.strokeStyle=`rgba(67,97,238,${.1*(1-d/130)})`;ctx.lineWidth=.5;ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke()}}}
+function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.up();p.dr()});conn();requestAnimationFrame(loop)}
+loop();
+
+// CURSOR GLOW
+const glw=document.getElementById('glw');
+document.addEventListener('mousemove',e=>{glw.style.left=e.clientX+'px';glw.style.top=e.clientY+'px'});
+
+// 3D CARD TILT
+document.querySelectorAll('.tilt').forEach(el=>{
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    const rx=((y-r.height/2)/r.height)*-14,ry=((x-r.width/2)/r.width)*14;
+    el.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.04) translateZ(12px)`;
+    el.style.transition='transform .08s ease';
+  });
+  el.addEventListener('mouseleave',()=>{
+    el.style.transform='perspective(900px) rotateX(0) rotateY(0) scale(1) translateZ(0)';
+    el.style.transition='transform .5s ease';
+  });
+});
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((en,i)=>{
+    if(en.isIntersecting){setTimeout(()=>en.target.classList.add('vis'),i*90);obs.unobserve(en.target)}
+  });
+},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv2').forEach(el=>obs.observe(el));
+
+// COUNTER
+const cobs=new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(!en.isIntersecting)return;
+    const el=en.target,tgt=parseFloat(el.dataset.target),sfx=el.dataset.sfx||'',dec=parseInt(el.dataset.dec||0);
+    const dur=2000,st=performance.now();
+    function tick(now){
+      const p=Math.min((now-st)/dur,1),ease=1-Math.pow(1-p,3),cur=ease*tgt;
+      el.textContent=(dec?cur.toFixed(dec):Math.floor(cur))+sfx;
+      if(p<1)requestAnimationFrame(tick);else el.textContent=(dec?tgt.toFixed(dec):tgt)+sfx;
+    }
+    requestAnimationFrame(tick);
+    cobs.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.sn[data-target]').forEach(el=>cobs.observe(el));
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const h=a.getAttribute('href');
+    if(h==='#')return;
+    e.preventDefault();
+    const t=document.querySelector(h);
+    if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
